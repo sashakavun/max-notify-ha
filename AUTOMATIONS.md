@@ -33,6 +33,7 @@
   - [Временное сообщение «формируется»](#pattern-temporary-message)
   - [Фото/видео с камеры и меню действий](#pattern-camera-menu)
   - [Динамическое фото по URL](#pattern-dynamic-url-photo)
+  - [Повторяющиеся напоминания (Alert)](#pattern-alert)
 - [max_notify.send_message](#autom-send-message)
   - [Ответ в тот же чат (из события)](#autom-send-message-same-chat)
   - [Вручную](#autom-send-message-manual)
@@ -461,6 +462,34 @@ actions:
                       https://www.google.com/maps/search/?api=1&query={{ lat }},{{ lon }}
                     {% endif %}
 mode: single
+```
+
+[↑ Наверх](#automations-top)
+
+<a id="pattern-alert"></a>
+
+### Повторяющиеся напоминания (Alert)
+
+Интеграция **[Alert](https://www.home-assistant.io/integrations/alert/)** напоминает о проблеме, пока она не устранена. В `notifiers` указывают имя сущности чата **без** `notify.`: для `notify.maxnotify_webhook_chat_123456` это `maxnotify_webhook_chat_123456`. Параметры `data` — в [ACTIONS.md](ACTIONS.md#notify-action).
+
+```yaml
+alert:
+  front_door:
+    name: Входная дверь открыта
+    title: Внимание
+    message: "Дверь открыта с {{ states.binary_sensor.front_door.last_changed | as_timestamp | timestamp_custom('%H:%M') }}"
+    done_message: Входная дверь закрыта
+    entity_id: binary_sensor.front_door
+    state: "on"
+    repeat:
+      - 5
+      - 15
+      - 30
+    skip_first: true
+    notifiers:
+      - maxnotify_webhook_chat_123456
+    data:
+      photo: /config/www/front_door.jpg
 ```
 
 [↑ Наверх](#automations-top)

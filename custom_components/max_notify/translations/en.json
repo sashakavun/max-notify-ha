@@ -992,6 +992,9 @@
     "service_send_document_no_inline_keyboard": {
       "message": "Cannot send an inline keyboard with a document: Max allows only the file as the attachment. Disable «Send keyboard» or clear Buttons."
     },
+    "notify_action_one_attachment_type": {
+      "message": "Only one attachment type per call: set just one of «photo», «video» or «document» in data."
+    },
     "delete_message_permission_denied": {
       "message": "No permission to delete messages. In a group chat, make the bot an administrator and grant it permission to delete messages."
     },
